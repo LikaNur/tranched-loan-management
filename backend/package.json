@@ -1,0 +1,23 @@
+{
+  "name": "@exercise/backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "bun index.ts",
+    "test": "bun test router"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@trpc/client": "^11.7.1",
+    "@trpc/server": "^11.7.1",
+    "trpc-bun-adapter": "^1.1.0",
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.2"
+  }
+}
