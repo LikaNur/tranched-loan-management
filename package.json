@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"bun --filter @exercise/backend start\" \"bun --filter @exercise/frontend dev\"",
+    "format": "prettier --write \"**/*.{js,ts,json,md}\""
   },
   "keywords": [],
   "author": "",
