@@ -30,16 +30,24 @@
 		</thead>
 		<tbody>
 			{#each loans as loan (loan.id)}
-				<tr class="transition-colors hover:bg-blue-50 even:bg-gray-50/30">
+				<tr
+					class="transition-colors hover:bg-blue-50 even:bg-gray-50/30 {selectable ? 'cursor-pointer' : ''}"
+					onclick={(e) => {
+						if (selectable && toggleSelection && e.target instanceof HTMLInputElement === false) {
+							toggleSelection(loan.id);
+						}
+					}}
+				>
 					{#if selectable}
 						<td class="border-b border-gray-200 px-4 py-3 text-center">
-						<input
-							type="checkbox"
-							checked={selectedIds?.has(loan.id) ?? false}
-							onchange={() => toggleSelection?.(loan.id)}
-							class="h-4 w-4 cursor-pointer rounded border-gray-300 text-[#1E4ED8] focus:ring-offset-0 checked:bg-[#1E4ED8]"
-							aria-label="Select loan {loan.id}"
-						/>
+							<input
+								type="checkbox"
+								checked={selectedIds?.has(loan.id) ?? false}
+								onchange={() => toggleSelection?.(loan.id)}
+								onclick={(e) => e.stopPropagation()}
+								class="h-4 w-4 cursor-pointer rounded border-gray-300 text-[#1E4ED8] focus:ring-offset-0 checked:bg-[#1E4ED8]"
+								aria-label="Select loan {loan.id}"
+							/>
 						</td>
 					{/if}
 					<td class="border-b border-gray-200 px-4 py-3 font-medium">{loan.id}</td>
