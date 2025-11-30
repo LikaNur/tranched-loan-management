@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"bun --filter @exercise/backend start\" \"bun --filter @exercise/frontend dev\""
+    "start": "concurrently \"bun --filter @exercise/backend start\" \"bun --filter @exercise/frontend dev\"",
   },
   "keywords": [],
   "author": "",

@@ -1,3 +1,3 @@
 export const randomWait = async () => {
-    await new Promise((resolve) => setTimeout(resolve, Math.random() * 500))
-}
+  await new Promise((resolve) => setTimeout(resolve, Math.random() * 500));
+};

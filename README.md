@@ -56,16 +56,13 @@ bun run start
 ## Task Requirements
 
 1. **Create Data Tables:**
-
    - **Inactive Loans Table:** Fetch and display inactive loans. Include a new column for `currentBalance` (calculated as `initialDebt - paid`).
    - **Active Loans Table:** Fetch and display active loans. Include a new column for `currentBalance`.
 
 2. **Table Headers:**
-
    - The title of each table should include the loan count fetched from the API by using `getActiveLoanCount` & `getInactiveLoanCount`
 
 3. **Move Loans to Active:**
-
    - Users should be able to select one or more loans from the inactive loans table and press a button to move them to the active loans table.
    - Handle the 1/3 chance of the `moveLoanToActive` mutation failing, including displaying appropriate loading and error states.
 
