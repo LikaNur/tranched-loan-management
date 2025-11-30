@@ -122,17 +122,24 @@
 	});
 </script>
 
-<main class="min-h-screen bg-gray-50 p-10">
+<a
+	href="#main-content"
+	class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+	>Skip to main content</a
+>
+
+<main id="main-content" class="min-h-screen bg-gray-50 p-10" tabindex="-1">
 	<div class="mx-auto max-w-7xl">
 		<h1 class="mb-8 text-4xl font-semibold text-gray-900">Loan Management</h1>
 
 		{#if loadError}
-			<div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4" role="alert">
+			<div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4" role="alert" aria-live="assertive">
 				<p class="font-medium text-[#C3420D]">Error loading data</p>
 				<p class="mt-1 text-sm text-[#C3420D]">{loadError}</p>
 				<button
 					onclick={loadData}
-					class="mt-2 rounded bg-[#C3420D] px-4 py-2 text-sm text-white hover:bg-[#C3420D]"
+					class="mt-2 rounded bg-[#C3420D] px-4 py-2 text-sm text-white hover:bg-[#C3420D] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+					aria-label="Retry loading loan data"
 				>
 					Retry
 				</button>
@@ -142,8 +149,13 @@
 		{#if isLoading && inactiveLoans.length === 0 && activeLoans.length === 0}
 			<div
 				class="mb-8 flex flex-col items-center justify-center rounded-xl bg-white p-12 shadow-md"
+				role="status"
+				aria-live="polite"
+				aria-busy="true"
 			>
-				<LoadingSpinner size="lg" class="mb-4 text-[#1E4ED8]" />
+				<div aria-hidden="true">
+					<LoadingSpinner size="lg" class="mb-4 text-[#1E4ED8]" />
+				</div>
 				<p class="text-lg font-medium text-gray-700">Loading loans...</p>
 				<p class="mt-2 text-sm text-gray-500">Please wait while we fetch your data</p>
 			</div>
@@ -162,15 +174,23 @@
 						aria-label="Move {selectedCount} selected loan{selectedCount !== 1
 							? 's'
 							: ''} to active"
-						class="group flex items-center gap-2 rounded-3xl bg-gray-950 px-6 py-2.5 font-medium text-white shadow-md transition-colors hover:bg-gray-800 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-85"
+						aria-describedby="move-button-description"
+						class="group flex items-center gap-2 rounded-3xl bg-gray-950 px-6 py-2.5 font-medium text-white shadow-md transition-colors hover:bg-gray-800 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-85 disabled:focus:ring-0"
 					>
 						Move {selectedCount > 0 ? selectedCount : ''} to Active
-						<ArrowRightIcon
-							class="h-5 w-5 transition-transform {selectedCount > 0
-								? 'group-hover:translate-x-1'
-								: ''}"
-						/>
+						<span aria-hidden="true">
+							<ArrowRightIcon
+								class="h-5 w-5 transition-transform {selectedCount > 0
+									? 'group-hover:translate-x-1'
+									: ''}"
+							/>
+						</span>
 					</button>
+					<span id="move-button-description" class="sr-only">
+						{selectedCount === 0
+							? 'Select loans from the table below to enable this button'
+							: `Currently {selectedCount} loan{selectedCount !== 1 ? 's' : ''} selected`}
+					</span>
 				</div>
 				<LoanTable
 					loans={inactiveLoans}
