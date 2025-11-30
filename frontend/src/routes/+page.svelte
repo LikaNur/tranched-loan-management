@@ -16,6 +16,7 @@
 	let errorIds = $state(new Map<number, string>());
 	let isLoading = $state(false);
 	let loadError = $state<string | null>(null);
+	let isMoving = $state(false); 
 
 	async function loadData() {
 		console.log('Loading data...');
@@ -58,8 +59,9 @@
 	}
 
 	async function moveSelected() {
-		if (selectedIds.size === 0) return;
+		if (selectedIds.size === 0 || isMoving) return;
 
+		isMoving = true;
 		const idsToMove = Array.from(selectedIds);
 		console.log('Moving loans:', idsToMove);
 
@@ -90,9 +92,12 @@
 		}
 
 		await loadData();
+		isMoving = false;
 	}
 
 	async function retryMove(id: number) {
+		if (loadingIds.has(id) || isMoving) return; 
+
 		loadingIds.add(id);
 		errorIds.delete(id);
 		loadingIds = new Set(loadingIds);
@@ -121,12 +126,6 @@
 		await loadData();
 	});
 </script>
-
-<a
-	href="#main-content"
-	class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-	>Skip to main content</a
->
 
 <main id="main-content" class="min-h-screen bg-gray-50 p-4 sm:p-6 md:p-10" tabindex="-1">
 	<div class="mx-auto max-w-7xl">
@@ -169,8 +168,8 @@
 						Inactive Loans <span class="text-base sm:text-lg text-[#94A2B8]">({inactiveCount})</span>
 					</h2>
 					<button
-						onclick={() => selectedCount > 0 && moveSelected()}
-						disabled={selectedCount === 0}
+						onclick={() => selectedCount > 0 && !isMoving && moveSelected()}
+						disabled={selectedCount === 0 || isMoving}
 						aria-label="Move {selectedCount} selected loan{selectedCount !== 1
 							? 's'
 							: ''} to active"
