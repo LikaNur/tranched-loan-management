@@ -17,4 +17,3 @@
 		fill="currentColor"
 	/>
 </svg>
-
