@@ -9,7 +9,7 @@
 	const linkedin = 'https://www.linkedin.com/in/nurmatova-malika/';
 </script>
 
-<nav class="relative border-b border-gray-800 bg-gray-950 px-3 sm:px-4 py-3 sm:py-5">
+<nav class="relative px-3 sm:px-4 py-3 sm:py-5">
 	<div class="absolute top-0 right-0 h-full w-full opacity-20"></div>
 
 	<div class="max-w-14xl relative mx-auto flex items-center justify-between">

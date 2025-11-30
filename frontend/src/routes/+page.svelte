@@ -127,9 +127,9 @@
 	});
 </script>
 
-<main id="main-content" class="min-h-screen bg-gray-50 p-4 sm:p-6 md:p-10" tabindex="-1">
+<main id="main-content" class="relative z-10 min-h-screen p-4 sm:p-6 md:p-10" tabindex="-1">
 	<div class="mx-auto max-w-7xl">
-		<h1 class="mb-4 text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900">Loan Management</h1>
+		<h1 class="mb-4 text-2xl sm:text-3xl md:text-4xl font-semibold text-white">Loan Management</h1>
 
 		{#if loadError}
 			<div class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 sm:p-4" role="alert" aria-live="assertive">
