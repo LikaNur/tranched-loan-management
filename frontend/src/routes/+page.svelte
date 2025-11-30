@@ -38,6 +38,25 @@
 		selectedIds = new Set(selectedIds);
 	}
 
+	async function moveSelected() {
+		if (selectedIds.size === 0) return;
+
+		const idsToMove = Array.from(selectedIds);
+		console.log('Moving loans:', idsToMove);
+
+		for (const id of idsToMove) {
+			try {
+				await client.moveLoanToActive.mutate(id);
+				console.log(`Loan ${id} moved successfully`);
+			} catch (error) {
+				console.error(`Failed to move loan ${id}:`, error);
+			}
+		}
+
+		selectedIds = new Set();
+		await loadData();
+	}
+
 	onMount(async () => {
 		await loadData();
 	});
@@ -51,6 +70,7 @@
 			<h2 class="text-2xl">Inactive Loans ({inactiveCount})</h2>
 			<button
 				disabled={selectedCount === 0}
+				onclick={moveSelected}
 				class="rounded bg-blue-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50 hover:bg-blue-600"
 			>
 				Move {selectedCount > 0 ? selectedCount : ''} to Active
