@@ -3,6 +3,7 @@
 	import { client } from '$lib/core/client';
 	import type { Loan } from '$lib/types/loan';
 	import LoanTable from '$lib/components/LoanTable.svelte';
+	import ArrowRightIcon from '$lib/components/icons/ArrowRightIcon.svelte';
 
 	let inactiveLoans = $state<Loan[]>([]);
 	let activeLoans = $state<Loan[]>([]);
@@ -62,30 +63,38 @@
 	});
 </script>
 
-<main class="p-8">
-	<h1 class="mb-8 text-3xl font-bold">Loan Management</h1>
+<main class="min-h-screen bg-gray-50 p-10">
+	<div class="mx-auto max-w-7xl">
+		<h1 class="mb-8 text-4xl font-semibold text-gray-900">Loan Management</h1>
 
-	<div class="mb-8">
-		<div class="mb-4 flex items-center justify-between">
-			<h2 class="text-2xl">Inactive Loans ({inactiveCount})</h2>
-			<button
-				disabled={selectedCount === 0}
-				onclick={moveSelected}
-				class="rounded bg-blue-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50 hover:bg-blue-600"
-			>
-				Move {selectedCount > 0 ? selectedCount : ''} to Active
-			</button>
+		<div class="mb-8 rounded-4xl bg-white p-6 shadow-md">
+			<div class="mb-4 flex items-center justify-between">
+				<h2 class="text-2xl font-semibold text-gray-800">
+					Inactive Loans <span class="text-lg text-gray-500">({inactiveCount})</span>
+				</h2>
+				<button
+					onclick={() => selectedCount > 0 && moveSelected()}
+					class="group flex items-center gap-2 rounded-3xl bg-gray-950 px-6 py-2.5 font-medium text-white shadow-md transition-colors {selectedCount === 0 ? 'cursor-not-allowed opacity-85' : 'hover:shadow-lg cursor-pointer hover:bg-gray-800'}"
+				>
+					Move {selectedCount > 0 ? selectedCount : ''} to Active
+					<ArrowRightIcon
+						class="h-5 w-5 transition-transform {selectedCount > 0 ? 'group-hover:translate-x-1' : ''}"
+					/>
+				</button>
+			</div>
+			<LoanTable
+				loans={inactiveLoans}
+				selectable={true}
+				{selectedIds}
+				{toggleSelection}
+			/>
 		</div>
-		<LoanTable
-			loans={inactiveLoans}
-			selectable={true}
-			{selectedIds}
-			{toggleSelection}
-		/>
-	</div>
 
-	<div>
-		<h2 class="mb-4 text-2xl">Active Loans ({activeCount})</h2>
-		<LoanTable loans={activeLoans} />
+		<div class="rounded-xl bg-white p-6 shadow-md">
+			<h2 class="mb-4 text-2xl font-semibold text-gray-800">
+				Active Loans <span class="text-lg text-gray-500">({activeCount})</span>
+			</h2>
+			<LoanTable loans={activeLoans} />
+		</div>
 	</div>
 </main>
