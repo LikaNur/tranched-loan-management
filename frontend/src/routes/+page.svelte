@@ -8,6 +8,8 @@
 	let activeLoans = $state<Loan[]>([]);
 	let inactiveCount = $state(0);
 	let activeCount = $state(0);
+	let selectedIds = $state(new Set<number>());
+	let selectedCount = $derived(selectedIds.size);
 
 	async function loadData() {
 		console.log('Loading data...');
@@ -27,6 +29,15 @@
 		console.log('Data loaded:', { inactiveLoans, activeLoans, inactiveCount, activeCount });
 	}
 
+	function toggleSelection(id: number) {
+		if (selectedIds.has(id)) {
+			selectedIds.delete(id);
+		} else {
+			selectedIds.add(id);
+		}
+		selectedIds = new Set(selectedIds);
+	}
+
 	onMount(async () => {
 		await loadData();
 	});
@@ -36,8 +47,21 @@
 	<h1 class="mb-8 text-3xl font-bold">Loan Management</h1>
 
 	<div class="mb-8">
-		<h2 class="mb-4 text-2xl">Inactive Loans ({inactiveCount})</h2>
-        <LoanTable loans={inactiveLoans} />
+		<div class="mb-4 flex items-center justify-between">
+			<h2 class="text-2xl">Inactive Loans ({inactiveCount})</h2>
+			<button
+				disabled={selectedCount === 0}
+				class="rounded bg-blue-500 px-4 py-2 text-white disabled:cursor-not-allowed disabled:opacity-50 hover:bg-blue-600"
+			>
+				Move {selectedCount > 0 ? selectedCount : ''} to Active
+			</button>
+		</div>
+		<LoanTable
+			loans={inactiveLoans}
+			selectable={true}
+			{selectedIds}
+			{toggleSelection}
+		/>
 	</div>
 
 	<div>
