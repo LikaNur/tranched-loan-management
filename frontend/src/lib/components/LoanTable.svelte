@@ -22,9 +22,9 @@
 	}>();
 </script>
 
-<div class="overflow-hidden rounded-2xl border border-gray-300 shadow-sm">
+<div class="overflow-x-auto hide-scrollbar -mx-4 sm:mx-0 rounded-xl sm:rounded-2xl border border-gray-300 shadow-sm">
 	<table
-		class="w-full border-collapse"
+		class="w-full min-w-[640px] border-collapse"
 		role="table"
 		aria-label={selectable ? 'Inactive loans table with selection' : 'Active loans table'}
 		aria-describedby={selectable ? 'inactive-table-description' : 'active-table-description'}
@@ -32,16 +32,16 @@
 		<thead>
 			<tr class="bg-gray-50 font-semibold text-gray-700">
 				{#if selectable}
-					<th scope="col" class="border-b border-gray-300 px-4 py-3 text-center">Select</th>
+					<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm">Select</th>
 				{/if}
-				<th scope="col" class="border-b border-gray-300 px-4 py-3 text-left">ID</th>
-				<th scope="col" class="border-b border-gray-300 px-4 py-3 text-left">Initial Debt</th>
-				<th scope="col" class="border-b border-gray-300 px-4 py-3 text-left">Paid</th>
-				<th scope="col" class="border-b border-gray-300 px-4 py-3 text-left font-bold"
+				<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm">ID</th>
+				<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm">Initial Debt</th>
+				<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm">Paid</th>
+				<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-bold"
 					>Current Balance</th
 				>
 				{#if selectable}
-					<th scope="col" class="border-b border-gray-300 px-4 py-3 text-left w-56">Status</th>
+					<th scope="col" class="border-b border-gray-300 px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm w-40 sm:w-56">Status</th>
 				{/if}
 			</tr>
 		</thead>
@@ -69,7 +69,7 @@
 					}}
 				>
 					{#if selectable}
-						<td class="border-b border-gray-200 px-4 py-3 text-center">
+						<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 text-center">
 							<input
 								type="checkbox"
 								checked={selectedIds?.has(loan.id) ?? false}
@@ -85,31 +85,31 @@
 							</span>
 						</td>
 					{/if}
-					<td class="border-b border-gray-200 px-4 py-3 font-medium" role="gridcell">
+					<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium" role="gridcell">
 						<span aria-label="Loan ID">{loan.id}</span>
 					</td>
-					<td class="border-b border-gray-200 px-4 py-3" role="gridcell">
+					<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm" role="gridcell">
 						<span aria-label="Initial debt">${loan.initialDebt.toFixed(2)}</span>
 					</td>
-					<td class="border-b border-gray-200 px-4 py-3" role="gridcell">
+					<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm" role="gridcell">
 						<span aria-label="Amount paid">${loan.paid.toFixed(2)}</span>
 					</td>
-					<td class="border-b border-gray-200 px-4 py-3 font-semibold text-[#077757]" role="gridcell">
+					<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-semibold text-[#077757]" role="gridcell">
 						<span aria-label="Current balance">${calculateBalance(loan).toFixed(2)}</span>
 					</td>
 					{#if selectable}
-						<td class="border-b border-gray-200 px-4 py-3 min-h-12">
-							<div class="flex min-h-6 items-center gap-2">
+						<td class="border-b border-gray-200 px-2 sm:px-4 py-2 sm:py-3 min-h-10 sm:min-h-12">
+							<div class="flex min-h-5 sm:min-h-6 items-center gap-1 sm:gap-2">
 								{#if loadingIds?.has(loan.id)}
-									<div class="flex items-center gap-2" role="status" aria-live="polite">
+									<div class="flex items-center gap-1 sm:gap-2" role="status" aria-live="polite">
 										<span aria-hidden="true">
 											<LoadingSpinner size="sm" class="text-blue-600" />
 										</span>
-										<span class="text-sm text-blue-600">Loading...</span>
+										<span class="text-xs sm:text-sm text-blue-600">Loading...</span>
 									</div>
 								{:else if errorIds?.has(loan.id)}
-									<div class="flex items-center gap-2">
-										<span class="text-sm text-red-600" role="alert">
+									<div class="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2">
+										<span class="text-xs sm:text-sm text-red-600" role="alert">
 											{errorIds.get(loan.id)}
 										</span>
 										{#if retryMove}
@@ -118,7 +118,7 @@
 												e.stopPropagation();
 												retryMove(loan.id);
 											}}
-											class="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+											class="rounded bg-red-600 px-2 py-1 text-xs font-medium text-white transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 whitespace-nowrap"
 											aria-label="Retry moving loan {loan.id} to active"
 										>
 											Retry
@@ -137,6 +137,7 @@
 
 {#if loans.length === 0}
 	<div class="py-12 text-center" role="status" aria-live="polite">
+		<div class="mb-4 text-6xl animate-bounce-vertical" aria-hidden="true">💸</div>
 		<p class="text-lg text-gray-400">No loans found</p>
 		<p class="mt-2 text-sm text-gray-500">There are no loans to display</p>
 	</div>

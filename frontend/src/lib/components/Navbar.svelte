@@ -9,30 +9,30 @@
 	const linkedin = 'https://www.linkedin.com/in/nurmatova-malika/';
 </script>
 
-<nav class="relative border-b border-gray-800 bg-gray-950 px-4 py-5">
+<nav class="relative border-b border-gray-800 bg-gray-950 px-3 sm:px-4 py-3 sm:py-5">
 	<div class="absolute top-0 right-0 h-full w-full opacity-20"></div>
 
 	<div class="max-w-14xl relative mx-auto flex items-center justify-between">
 		<div class="flex items-center">
-			<img src={favicon} alt="Tranched company logo" class="h-10 w-12 rounded-lg" />
+			<img src={favicon} alt="Tranched company logo" class="h-8 w-10 sm:h-10 sm:w-12 rounded-lg" />
 			<a
 				href="https://tranched.fi/"
 				class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
 				aria-label="Visit Tranched website"
 			>
-				<span class="pl-1 text-[17.5px] tracking-wide text-white">Tranched</span>
+				<span class="pl-1 text-sm sm:text-[17.5px] tracking-wide text-white">Tranched</span>
 			</a>
 		</div>
 
-		<div class="flex items-center gap-6">
+		<div class="flex items-center gap-2 sm:gap-4 md:gap-6">
 			<a
 				href="mailto:{email}"
-				class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
+				class="hidden sm:inline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
 				aria-label="Contact via email"
 			>
-				<span class="text-lg tracking-wide text-[#94A2B8] hover:text-white">Contact</span>
+				<span class="text-base sm:text-lg tracking-wide text-[#94A2B8] hover:text-white">Contact</span>
 			</a>
-			<div class="flex items-center gap-4">
+			<div class="flex items-center gap-2 sm:gap-3 md:gap-4">
 				<a
 					href={linkedin}
 					target="_blank"
@@ -41,7 +41,7 @@
 					aria-label="Visit LinkedIn profile"
 				>
 					<span aria-hidden="true">
-						<LinkedInIcon class="h-6 w-6" />
+						<LinkedInIcon class="h-5 w-5 sm:h-6 sm:w-6" />
 					</span>
 				</a>
 				<a
@@ -52,16 +52,25 @@
 					aria-label="Visit GitHub profile"
 				>
 					<span aria-hidden="true">
-						<GithubIcon class="h-6 w-6" />
+						<GithubIcon class="h-5 w-5 sm:h-6 sm:w-6" />
 					</span>
 				</a>
 				<a
 					href="mailto:{email}"
-					class="text-[#94A2B8] transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
+					class="text-[#94A2B8] transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded sm:hidden"
 					aria-label="Send email"
 				>
 					<span aria-hidden="true">
-						<EmailIcon class="h-6 w-6" />
+						<EmailIcon class="h-5 w-5 sm:h-6 sm:w-6" />
+					</span>
+				</a>
+				<a
+					href="mailto:{email}"
+					class="hidden sm:inline text-[#94A2B8] transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
+					aria-label="Send email"
+				>
+					<span aria-hidden="true">
+						<EmailIcon class="h-5 w-5 sm:h-6 sm:w-6" />
 					</span>
 				</a>
 			</div>

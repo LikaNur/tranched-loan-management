@@ -56,3 +56,12 @@ input:focus-visible {
 .animate-bounce-vertical {
 	animation: bounce-vertical 2s ease-in-out infinite;
 }
+
+.hide-scrollbar {
+	-ms-overflow-style: none; 
+	scrollbar-width: none; 
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+	display: none; 
+}
