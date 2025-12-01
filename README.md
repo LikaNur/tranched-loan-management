@@ -1,83 +1,137 @@
-# Tranched Frontend Exercise
+## 💼 Tranched Loan Management System
 
-Welcome to the Tranched frontend exercise!
+> A modern web application for loan management built with Svelte 5 and tRPC
 
-This exercise is designed to test your proficiency with a task that's relatively close to one you might encounter whilst working for Tranched.
+![Demo](./frontend/src/lib/assets/demo-tranched.gif)
 
-## Objectives
+### Table of Contents
 
-You will create two data tables to display loans: one for inactive loans and one for active loans.
+- [Project Description](#project-description)
+- [Tech Stack](#tech-stack)
+- [Implemented Features](#implemented-features)
+- [Project Structure](#project-structure)
+- [Installation & Setup](#installation--setup)
+- [Implementation Highlights](#implementation-highlights)
+- [Future Improvements](#future-improvements)
 
-Each table should include the loan count fetched from the API and display a calculated value called `currentBalance` (which is `initialDebt - paid`).
+### Project Description
 
-Users should be able to select inactive loans from the inactive loans table and move them to the active loans table by pressing a button. You'll need to handle loading and error states as there is a 1/3 chance of the moveLoanToActive operation failing.
+Loan Management System is a full-featured application for managing loans that allows you to:
 
-## Project Structure
+- View active and inactive loans in separate tables
+- Select and move loans between categories
+- Track the balance of each loan in real-time
+- Handle errors with retry functionality
+- Enjoy a modern and responsive interface
 
-This is a monorepo managed with Bun.
-The frontend is located in the `frontend/` directory (i.e frontend) and the backend is in the `backend/` directory.
+### Tech Stack
 
-If you'd like to further your understanding of the backend logic, it can be found in `backend/router.ts`.
+### Frontend
+- **Svelte 5** (Runes API) — modern reactive framework
+- **SvelteKit** — full-featured framework for Svelte
+- **TypeScript** — typed JavaScript
+- **TailwindCSS 4** — utility-first CSS framework
+- **tRPC Client** — type-safe API client
+- **Bun** — fast JavaScript runtime and package manager
 
-The backend client for the frontend can be found in `frontend/src/lib/core/client.ts`
+### Backend
+- **tRPC** — type-safe RPC framework
+- **Zod** — schema validation
+- **Node.js/Bun** — server runtime environment
 
-## Setup Instructions
+### Implemented Features
 
-### Install Bun
+- ✅ **Two Data Tables**
+  - Inactive loans table with selection capability
+  - Active loans table (read-only)
+  - Display of `currentBalance` (calculated: `initialDebt - paid`)
 
-First, you need to install Bun. Follow the instructions below:
+- ✅ **Table Headers with Counts**
+  - Dynamic display of loan counts from API
+  - Using `getActiveLoanCount` and `getInactiveLoanCount`
 
-```bash
-curl -fsSL https://bun.sh/install | bash
-```
+- ✅ **Move Loans**
+  - Multiple selection via checkboxes
+  - "Move to Active" button to move selected loans
+  - Error handling with 1/3 probability
 
-After installing Bun, verify the installation:
+- ✅ **Loading and Error States**
+  - Row-level loading states (loading indicator for each loan)
+  - Row-level error states (error display with Retry button)
+  - Global loading and error states
 
-```bash
-bun --version
-```
+- ✅ **Semantic HTML and Accessibility (a11y)**
+  - Semantic HTML elements (`<table>`, `<section>`, `<nav>`)
+  - ARIA attributes (`aria-label`, `aria-live`, `role`, `aria-describedby`)
+  - Keyboard navigation (Enter/Space for row selection)
+  - Focus management for improved accessibility
+
+### Additional Features (Over-delivery)
+
+- **Enhanced Interactivity**
+  - Click on row to select loan (not just checkbox)
+  - Dynamic "Move to Active" button with selected count
+  - Visual indication of selected items
+  - Button disabled when no selection
+
+- **Performance Optimization**
+  - Parallel data loading via `Promise.all`
+  - Race condition protection (`isMoving` flag)
+  - Efficient state management with Svelte 5 Runes
+
+- **Enhanced Error Handling**
+  - Centralized error message extraction function
+  - Different error formats (tRPC, standard Error)
+  - Retry mechanism for failed operations
+  - User-friendly error messages
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) version 1.1.8 or higher
 
 ### Install Dependencies
 
-Navigate to the root directory of the project and run the following command to install all dependencies for both frontend and backend:
-
 ```bash
+
 bun install
 ```
 
-### Start the Project
-
-To start both the backend and frontend, run the following command from the root directory:
+### Run the Project
 
 ```bash
+
 bun run start
 ```
 
-## Task Requirements
+The application will be available at:
+- **Frontend**: http://localhost:5173
+- **Backend**: http://localhost:3000
 
-1. **Create Data Tables:**
-   - **Inactive Loans Table:** Fetch and display inactive loans. Include a new column for `currentBalance` (calculated as `initialDebt - paid`).
-   - **Active Loans Table:** Fetch and display active loans. Include a new column for `currentBalance`.
+### Run Separately
 
-2. **Table Headers:**
-   - The title of each table should include the loan count fetched from the API by using `getActiveLoanCount` & `getInactiveLoanCount`
+```bash
 
-3. **Move Loans to Active:**
-   - Users should be able to select one or more loans from the inactive loans table and press a button to move them to the active loans table.
-   - Handle the 1/3 chance of the `moveLoanToActive` mutation failing, including displaying appropriate loading and error states.
+cd backend
+bun run start
 
-4. **Leverage Sveltekit and tRPC Client:**
-   - Utilize the existing setup with Sveltekit, tRPC client to interact with the backend API.
+cd frontend
+bun run dev
+```
 
-## Evaluation Criteria
+### Future Improvements
 
-- Correct implementation of data fetching and mutation using the Sveltekit framework.
-- Proper handling of loading and error states down to a row level.
-- Code quality and adherence to best practices.
-- Semantic HTML with accessible elements.
+If there was more time, I would add the following improvements:
 
-## Getting Help
+### Testing
+- **Unit tests** for utilities (`calculateBalance`, `extractErrorMessage`)
+- **Component tests** for `LoanTable`, `Navbar` and other components
+- **Integration tests** for complete user scenarios
+- **E2E tests** with Playwright or Cypress
 
-If you have any questions or need further clarification, please don't hesitate to reach out.
-
-Good luck, and happy coding!
+### Functionality
+- **Select All / Deselect All** — button for bulk selection
+- **Search and Filter** — search by ID, filter by balance
+- **Sorting** — sort by columns (ID, balance, date)
+- **Pagination** — page splitting for large lists
+- **Local Caching** — save state in localStorage
+- **Notifications** — toast notifications for successful operations
