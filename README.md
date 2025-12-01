@@ -9,9 +9,6 @@
 - [Project Description](#project-description)
 - [Tech Stack](#tech-stack)
 - [Implemented Features](#implemented-features)
-- [Project Structure](#project-structure)
-- [Installation & Setup](#installation--setup)
-- [Implementation Highlights](#implementation-highlights)
 - [Future Improvements](#future-improvements)
 
 ### Project Description
@@ -65,25 +62,6 @@ Loan Management System is a full-featured application for managing loans that al
   - ARIA attributes (`aria-label`, `aria-live`, `role`, `aria-describedby`)
   - Keyboard navigation (Enter/Space for row selection)
   - Focus management for improved accessibility
-
-### Additional Features (Over-delivery)
-
-- **Enhanced Interactivity**
-  - Click on row to select loan (not just checkbox)
-  - Dynamic "Move to Active" button with selected count
-  - Visual indication of selected items
-  - Button disabled when no selection
-
-- **Performance Optimization**
-  - Parallel data loading via `Promise.all`
-  - Race condition protection (`isMoving` flag)
-  - Efficient state management with Svelte 5 Runes
-
-- **Enhanced Error Handling**
-  - Centralized error message extraction function
-  - Different error formats (tRPC, standard Error)
-  - Retry mechanism for failed operations
-  - User-friendly error messages
 
 ### Prerequisites
 
