@@ -5,6 +5,7 @@
 	import LoanTable from '$lib/components/LoanTable.svelte';
 	import ArrowRightIcon from '$lib/components/icons/ArrowRightIcon.svelte';
 	import LoadingSpinner from '$lib/components/icons/LoadingSpinner.svelte';
+	import { extractErrorMessage } from '$lib/utils/error-handler';
 
 	let inactiveLoans = $state<Loan[]>([]);
 	let activeLoans = $state<Loan[]>([]);
@@ -19,7 +20,6 @@
 	let isMoving = $state(false); 
 
 	async function loadData() {
-		console.log('Loading data...');
 		isLoading = true;
 		loadError = null;
 
@@ -35,15 +35,8 @@
 			activeLoans = active;
 			inactiveCount = inactiveC;
 			activeCount = activeC;
-
-			console.log('Data loaded:', { inactiveLoans, activeLoans, inactiveCount, activeCount });
-		} catch (error: any) {
-			console.error('Error loading data:', error);
-			loadError =
-				error?.data?.message ||
-				error?.shape?.message ||
-				error?.message ||
-				'Failed to load data. Please check if backend is running on http://localhost:3000';
+		} catch (error) {
+			loadError = extractErrorMessage(error) || 'Failed to load data. Please check if backend is running on http://localhost:3000';
 		} finally {
 			isLoading = false;
 		}
@@ -63,7 +56,6 @@
 
 		isMoving = true;
 		const idsToMove = Array.from(selectedIds);
-		console.log('Moving loans:', idsToMove);
 
 		for (const id of idsToMove) {
 			loadingIds.add(id);
@@ -73,11 +65,9 @@
 
 			try {
 				await client.moveLoanToActive.mutate(id);
-				console.log(`Loan ${id} moved successfully`);
 				selectedIds.delete(id);
 				selectedIds = new Set(selectedIds);
 			} catch (error: any) {
-				console.error(`Failed to move loan ${id}:`, error);
 				const errorMessage =
 					error?.data?.message ||
 					error?.shape?.message ||

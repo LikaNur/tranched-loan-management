@@ -17,8 +17,9 @@
 			<img src={favicon} alt="Tranched company logo" class="h-8 w-10 sm:h-10 sm:w-12 rounded-lg" />
 			<a
 				href="https://tranched.fi/"
-				class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
-				aria-label="Visit Tranched website"
+                target="_blank"
+                rel="noopener noreferrer"
+			aria-label="Visit Tranched website"
 			>
 				<span class="pl-1 text-sm sm:text-[17.5px] tracking-wide text-white">Tranched</span>
 			</a>
