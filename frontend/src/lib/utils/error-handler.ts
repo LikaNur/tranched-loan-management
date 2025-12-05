@@ -1,6 +1,6 @@
 export function extractErrorMessage(error: unknown): string {
 	if (error && typeof error === 'object') {
-		const err = error as any;
+		const err = error as { data?: { message?: string }; shape?: { message?: string }; message?: string };
 		return (
 			err?.data?.message ||
 			err?.shape?.message ||

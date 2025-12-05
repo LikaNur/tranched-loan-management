@@ -3,6 +3,16 @@
 	import { calculateBalance } from '$lib/types/loan';
 	import LoadingSpinner from './icons/LoadingSpinner.svelte';
 
+	interface Props {
+		loans: Loan[];
+		selectable?: boolean;
+		selectedIds?: Set<number>;
+		loadingIds?: Set<number>;
+		errorIds?: Map<number, string>;
+		toggleSelection?: (id: number) => void;
+		retryMove?: (id: number) => void;
+	}
+
 	let {
 		loans,
 		selectable = false,
@@ -11,15 +21,7 @@
 		errorIds,
 		toggleSelection,
 		retryMove
-	} = $props<{
-		loans: Loan[];
-		selectable?: boolean;
-		selectedIds?: Set<number>;
-		loadingIds?: Set<number>;
-		errorIds?: Map<number, string>;
-		toggleSelection?: (id: number) => void;
-		retryMove?: (id: number) => void;
-	}>();
+	}:Props = $props();
 </script>
 
 <div

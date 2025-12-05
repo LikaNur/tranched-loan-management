@@ -71,9 +71,7 @@
 				selectedIds = new Set(selectedIds);
 			} catch (error: any) {
 				const errorMessage =
-					error?.data?.message ||
-					error?.shape?.message ||
-					error?.message ||
+					extractErrorMessage(error) ||
 					'Internal server error. Please try again.';
 				errorIds.set(id, errorMessage);
 				errorIds = new Map(errorIds);
@@ -102,9 +100,7 @@
 			await loadData();
 		} catch (error: any) {
 			const errorMessage =
-				error?.data?.message ||
-				error?.shape?.message ||
-				error?.message ||
+				extractErrorMessage(error) ||
 				'Internal server error. Please try again.';
 			errorIds.set(id, errorMessage);
 			errorIds = new Map(errorIds);
